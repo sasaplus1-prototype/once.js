@@ -1,8 +1,3 @@
-/*!
- * @license once.js Copyright(c) 2016 sasa+1
- * https://github.com/sasaplus1-prototype/once.js
- * Released under the MIT license.
- */
 'use strict';
 
 module.exports = function(fn) {
