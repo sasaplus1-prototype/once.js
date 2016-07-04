@@ -9,5 +9,8 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/sasaplus1-prototype/once.js.git"
+  },
+  "devDependencies": {
+    "webpack": "^1.13.1"
   }
 }
