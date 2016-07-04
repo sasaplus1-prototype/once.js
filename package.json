@@ -10,6 +10,12 @@
     "type": "git",
     "url": "https://github.com/sasaplus1-prototype/once.js.git"
   },
+  "scripts": {
+    "build": "npm run compile && npm run minify",
+    "compile": "npm run webpack -- --output-file once.js",
+    "minify": "npm run webpack -- --optimize-minimize --output-file once.min.js",
+    "webpack": "webpack --colors --display-error-details --progress"
+  },
   "devDependencies": {
     "webpack": "^1.13.1"
   }
