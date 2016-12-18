@@ -1,6 +1,6 @@
 'use strict';
 
-const isFunction = require('type-check/is-function');
+var isFunction = require('type-check/is-function');
 
 /**
  * return converted function
@@ -10,19 +10,23 @@ const isFunction = require('type-check/is-function');
  * @return {Function}
  */
 module.exports = function once(fn) {
+  var count;
+
   if (!isFunction(fn)) {
     throw new TypeError('fn must be a Function');
   }
 
-  let count = 1;
+  count = 1;
 
   return function() {
+    var args, call;
+
     if (count-- <= 0) {
       return;
     }
 
-    const args = arguments,
-          call = 'call';
+    args = arguments;
+    call = 'call';
 
     switch (args.length) {
       case 0:
