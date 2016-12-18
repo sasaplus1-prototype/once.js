@@ -1,5 +1,5 @@
 /*!
- * @license once.js Copyright(c) 2016 sasa+1
+ * @license once.js ver.1.0.0 Copyright(c) 2016 sasa+1
  * https://github.com/sasaplus1-prototype/once.js
  * Released under the MIT license.
  */
@@ -57,30 +57,61 @@ return /******/ (function(modules) { // webpackBootstrap
 /************************************************************************/
 /******/ ([
 /* 0 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var isFunction = __webpack_require__(1);
+
+	/**
+	 * return converted function
+	 *
+	 * @param {Function} fn
+	 * @throws {TypeError}
+	 * @return {Function}
+	 */
+	module.exports = function once(fn) {
+	  if (!isFunction(fn)) {
+	    throw new TypeError('fn must be a Function');
+	  }
+
+	  var count = 1;
+
+	  return function () {
+	    if (count-- <= 0) {
+	      return;
+	    }
+
+	    var args = arguments,
+	        call = 'call';
+
+	    switch (args.length) {
+	      case 0:
+	        return fn[call](this);
+	      case 1:
+	        return fn[call](this, args[0]);
+	      case 2:
+	        return fn[call](this, args[0], args[1]);
+	      case 3:
+	        return fn[call](this, args[0], args[1], args[2]);
+	      default:
+	        return fn.apply(this, args);
+	    }
+	  };
+	};
+
+/***/ },
+/* 1 */
 /***/ function(module, exports) {
 
 	'use strict';
 
-	module.exports = function(fn) {
-	  var count;
+	const toString = Object.prototype.toString;
 
-	  if (typeof fn !== 'function') {
-	    throw new TypeError('fn must be a Function');
-	  }
-
-	  count = 1;
-
-	  return function() {
-	    var result;
-
-	    if (count-- > 0) {
-	      result = fn.apply(this, arguments);
-	    }
-
-	    fn = void 0;
-
-	    return result;
-	  };
+	module.exports = function isFunction(value) {
+	  return (
+	    typeof value === 'function' || toString.call(value) === '[object Function]'
+	  );
 	};
 
 
