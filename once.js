@@ -1,5 +1,5 @@
 /*!
- * @license once.js ver.1.0.0 Copyright(c) 2016 sasa+1
+ * @license once.js ver.1.0.1 Copyright(c) 2016 sasa+1
  * https://github.com/sasaplus1-prototype/once.js
  * Released under the MIT license.
  */
@@ -71,19 +71,23 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * @return {Function}
 	 */
 	module.exports = function once(fn) {
+	  var count;
+
 	  if (!isFunction(fn)) {
 	    throw new TypeError('fn must be a Function');
 	  }
 
-	  var count = 1;
+	  count = 1;
 
-	  return function () {
+	  return function() {
+	    var args, call;
+
 	    if (count-- <= 0) {
 	      return;
 	    }
 
-	    var args = arguments,
-	        call = 'call';
+	    args = arguments;
+	    call = 'call';
 
 	    switch (args.length) {
 	      case 0:
@@ -100,13 +104,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	  };
 	};
 
+
 /***/ },
 /* 1 */
 /***/ function(module, exports) {
 
 	'use strict';
 
-	const toString = Object.prototype.toString;
+	var toString = Object.prototype.toString;
 
 	module.exports = function isFunction(value) {
 	  return (
