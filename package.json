@@ -29,5 +29,8 @@
     "lint": "npm run eslint -- .",
     "minify": "NODE_ENV=production npm run webpack -- --optimize-minimize --output-filename ${npm_package_name}.min.js",
     "webpack": "webpack --colors --display-error-details --progress"
+  },
+  "dependencies": {
+    "type-check": "github:sasaplus1-prototype/type-check.js"
   }
 }

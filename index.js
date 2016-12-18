@@ -1,23 +1,39 @@
 'use strict';
 
-module.exports = function(fn) {
-  var count;
+const isFunction = require('type-check/is-function');
 
-  if (typeof fn !== 'function') {
+/**
+ * return converted function
+ *
+ * @param {Function} fn
+ * @throws {TypeError}
+ * @return {Function}
+ */
+module.exports = function once(fn) {
+  if (!isFunction(fn)) {
     throw new TypeError('fn must be a Function');
   }
 
-  count = 1;
+  let count = 1;
 
   return function() {
-    var result;
-
-    if (count-- > 0) {
-      result = fn.apply(this, arguments);
+    if (count-- <= 0) {
+      return;
     }
 
-    fn = void 0;
+    const args = arguments;
 
-    return result;
+    switch (args.length) {
+      case 0:
+        return fn.call(this);
+      case 1:
+        return fn.call(this, args[0]);
+      case 2:
+        return fn.call(this, args[0], args[1]);
+      case 3:
+        return fn.call(this, args[0], args[1], args[2]);
+      default:
+        return fn.apply(this, args);
+    }
   };
 };
