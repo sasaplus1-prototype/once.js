@@ -21,17 +21,18 @@ module.exports = function once(fn) {
       return;
     }
 
-    const args = arguments;
+    const args = arguments,
+          call = 'call';
 
     switch (args.length) {
       case 0:
-        return fn.call(this);
+        return fn[call](this);
       case 1:
-        return fn.call(this, args[0]);
+        return fn[call](this, args[0]);
       case 2:
-        return fn.call(this, args[0], args[1]);
+        return fn[call](this, args[0], args[1]);
       case 3:
-        return fn.call(this, args[0], args[1], args[2]);
+        return fn[call](this, args[0], args[1], args[2]);
       default:
         return fn.apply(this, args);
     }
